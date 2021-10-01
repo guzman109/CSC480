@@ -1,0 +1,147 @@
+Puzzle Difficulty is set to easy.
+BFS
+Goal State Reached!
+Length:	5.
+Cost:	16.
+Time:	43
+Space:	35
+DFS
+Goal State Reached!
+Length:	13.
+Cost:	68.
+Time:	14
+Space:	11
+Iter_Deep
+Goal State Reached!
+Length:	5.
+Cost:	16.
+Time:	42
+Space:	6
+Uniform-Cost
+Goal State Reached!
+Length:	5.
+Cost:	16.
+Time:	40
+Space:	26
+Best-First
+Goal State Reached!
+Length:	5.
+Cost:	16.
+Time:	7
+Space:	7
+A*1
+Goal State Reached!
+Length:	5.
+Cost:	16.
+Time:	20
+Space:	12
+A*2
+Goal State Reached!
+Length:	5.
+Cost:	16.
+Time:	16
+Space:	10
+A*3
+Goal State Reached!
+Length:	5.
+Cost:	16.
+Time:	18
+Space:	12
+Puzzle Difficulty is set to medium.
+BFS
+Goal State Reached!
+Length:	9.
+Cost:	20.
+Time:	331
+Space:	213
+DFS
+Goal State Reached!
+Length:	57835.
+Cost:	283095.
+Time:	68856
+Space:	38636
+Iter_Deep
+Goal State Reached!
+Length:	9.
+Cost:	20.
+Time:	986
+Space:	12
+Uniform-Cost
+Goal State Reached!
+Length:	9.
+Cost:	20.
+Time:	69
+Space:	45
+Best-First
+Goal State Reached!
+Length:	39.
+Cost:	97.
+Time:	474
+Space:	310
+A*1
+Goal State Reached!
+Length:	9.
+Cost:	20.
+Time:	40
+Space:	27
+A*2
+Goal State Reached!
+Length:	9.
+Cost:	20.
+Time:	27
+Space:	20
+A*3
+Goal State Reached!
+Length:	9.
+Cost:	20.
+Time:	33
+Space:	23
+Puzzle Difficulty is set to hard.
+BFS
+Goal State Reached!
+Length:	30.
+Cost:	117.
+Time:	181357
+Space:	24978
+DFS
+Goal State Reached!
+Length:	24356.
+Cost:	125568.
+Time:	161717
+Space:	42808
+Iter_Deep
+Goal State Reached!
+Length:	34.
+Cost:	133.
+Time:	35893
+Space:	31
+Uniform-Cost
+Goal State Reached!
+Length:	32.
+Cost:	108.
+Time:	181061
+Space:	24682
+Best-First
+Goal State Reached!
+Length:	78.
+Cost:	293.
+Time:	1179
+Space:	735
+A*1
+Goal State Reached!
+Length:	32.
+Cost:	108.
+Time:	179301
+Space:	25437
+A*2
+Goal State Reached!
+Length:	32.
+Cost:	108.
+Time:	167722
+Space:	27615
+A*3
+Goal State Reached!
+Length:	32.
+Cost:	108.
+Time:	173783
+Space:	26477
