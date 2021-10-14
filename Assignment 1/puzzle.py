@@ -11,6 +11,7 @@ directions_UDLR = {0:(3,1), 1:(4,0,2), 2:(5,1), 3:(0,6,4), 4:(1,7,3,5), 5:(2,8,4
 directions_Clock = {0:(1,3), 1:(2,4,0), 2:(5,1), 3:(0,4,6), 4:(1,5,7,3), 5:(2,8,4), 6:(3,7), 7:(4,8,6), 8:(5,7)}
 directions_CntrClock = {0:(3,1), 1:(0,4,2), 2:(1,5), 3:(0,6,4), 4:(1,3,7,5), 5:(2,4,8), 6:(3,7), 7:(4,6,8), 8:(5,7)}
 
+# Used for calculating Heuristic.
 goal_state_idx = {0:[1,1], 1:[0,0], 2:[0,1], 3:[0,2], 4:[1,2], 5:[2,2], 6:[2,1], 7:[2,0], 8:[1,0]}
 goal_state = [1,2,3,8,0,4,7,6,5]
 
@@ -21,11 +22,13 @@ class puzzle():
         self.difficulty = difficulty
         self.start_state = np.array(starting_states[difficulty])
     def moveBlank(self, array, i, j):
+        # Swap the blank space with the next tile it needs to move to.
         array[i], array[j] = array[j], array[i]
         return array    
     def isGoalState(self, state):
         return True if (state == goal_state).all() else False
     def displayStats(self, id, cost, time, space):
+        # Display Stats for Tables
         length = 0
         while id != self.start_state.tostring():
             id = self.nodes[id][2]
@@ -39,12 +42,16 @@ class puzzle():
         print(self.nodes[id][0].reshape((3,3)))
     """ Heuristic Functions """
     def HeuristicFunc(self, h=1):
+        # Return Heuristic Function for proper algorithm.
         if h == 1:
+            #number of misplaced tiles
             return lambda A: np.sum([1 if a!=g and a else 0 for a, g in zip(A, goal_state)])
         elif h == 2:
+            # City Block Dist
             return lambda A: np.sum([cityblock([i,j], goal_state_idx[A[i,j]]) if A[i,j] else 0 for i in range(3) for j in range(3)])
         elif h == 3:
             # return lambda A: np.sum([1 if a!=g and a else 0 for a, g in zip(A.flatten(), goal_state)]) + np.sum([cityblock([i,j], goal_state_idx[A[i,j]]) if A[i,j] else 0 for i in range(3) for j in range(3)])
+            # Euclidean Distance of each tile to its proper goal state.
             return lambda A: np.sum([euclidean([i,j], goal_state_idx[A[i,j]]) if A[i,j] else 0 for i in range(3) for j in range(3)])
  
     """ Search Algorithms """
@@ -53,7 +60,7 @@ class puzzle():
             Input: algorithm: (string) the name of the searching algorithm, 
                     search_struct: (deque or heap) the search data structure to keep track of nodes it is going to visit.
                     star: (int)(optional) For A* Search, this is to use the proper Heuristic Function.
-            Output: 
+            Output: True if goal state found.
         """
         """ 
             node info is a Hash Map to keep track of node structure
@@ -86,6 +93,19 @@ class puzzle():
         return self.WhateverSearch(algorithm, search_struct, depth_limit=depth_limit, star=star, H=H)
         
     def WhateverSearch(self, algorithm, search_struct, depth_limit=-1, star=1, H=None):
+        """
+            Input: algorithm: (string) the name of the searching algorithm, 
+                    search_struct: (deque or heap) the search data structure to keep track of nodes it is going to visit.
+                    star: (int)(optional) For A* Search, this is to use the proper Heuristic Function.
+                    H: Heurist Function
+            Output: True if goal state found.
+        """
+        """ 
+            node info is a Hash Map to keep track of node structure
+            
+            Key: Node ID (string)
+            Value: [state, index of blank tile, parent id, in the structure?, expanded?, cost, h, cost+h, depth]
+        """
         num_popped_off = 0
         max_len = len(search_struct)
         # Start the serach.
@@ -110,6 +130,7 @@ class puzzle():
 
                 # Check if current node is a goal state
                 if self.isGoalState(self.nodes[node_id][0]):
+                    # Display Stats and reset hash map
                     self.displayStats(node_id, self.nodes[node_id][5], num_popped_off, max_len)
                     del(self.nodes)
                     return True
@@ -133,6 +154,7 @@ class puzzle():
                         # Add to node to self.nodes dictionary if it hasn't been created.
                         if child_id not in self.nodes:
                             self.nodes[child_id] = [child_state, move, node_id, True, False, cost, h, cost+h, depth+1]
+                            
                             # Add the new child
                             if algorithm in ['BFS', 'DFS']:
                                     search_struct.append(child_id)
@@ -150,6 +172,7 @@ class puzzle():
                                 self.nodes[child_id][5] = cost
                                 # Add the child with updated priority
                                 heappush(search_struct, (self.nodes[child_id][7], child_id))
+        # Resets the hash map
         del(self.nodes)
         return False
     

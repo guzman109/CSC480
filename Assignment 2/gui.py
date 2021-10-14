@@ -51,7 +51,13 @@ class Game(Frame):
         self.start_game(int(self.entry_rows.get()), int(self.entry_cols.get()), int(self.entry_ply.get()))
 
     def cpu_turn(self):
-        self.game.cpu_turn()
+        move = self.game.cpu_turn()
+        print(self.game.grid)
+        for id,coord in self.line_ids.items():
+            if coord == move:
+                self.canvas.itemconfig(id, dash=(), fill='red')
+                break
+        self.box_complete(self.game.check_grid(player=False), player=False)
     def player_turn(self, event):
         id = event.widget.find_closest(event.x, event.y)
         self.canvas.itemconfig(id, dash=(), fill='red')

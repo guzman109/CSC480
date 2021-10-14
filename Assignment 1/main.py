@@ -10,11 +10,13 @@ if __name__ == '__main__':
     while True:
         print("Enter difficulty (easy, medium, or hard). (To exit enter 'exit')")
         difficulty = input()
+
         if difficulty != 'exit':
             print(f'Puzzle Difficulty is set to {difficulty}.')
             p = puzzle(difficulties[difficulty])
             print("Enter search stragegy (BFS, DFS, Iter_Deep, Unif_Cost, Best_First, A*1, A*2 or A*3).")
             algorithm = input()
+            
             if algorithm == 'BFS':
                 print('Running BFS')
                 p.BreadthFirstSearch()
